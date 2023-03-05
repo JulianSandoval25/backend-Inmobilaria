@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/JulianSandoval25/backend-Inmobilaria/issues"
   },
-  "homepage": "https://github.com/JulianSandoval25/backend-Inmobilaria#readme"
+  "homepage": "https://github.com/JulianSandoval25/backend-Inmobilaria#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  }
 }
