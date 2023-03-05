@@ -1,0 +1,20 @@
+{
+  "name": "backend-inmobilaria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulianSandoval25/backend-Inmobilaria.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JulianSandoval25/backend-Inmobilaria/issues"
+  },
+  "homepage": "https://github.com/JulianSandoval25/backend-Inmobilaria#readme"
+}
