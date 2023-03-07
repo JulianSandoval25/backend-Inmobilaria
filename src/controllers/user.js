@@ -1,14 +1,19 @@
 import userModel from '../models/user.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import FuncionUpload from '../middlewares/uploadImg.js'
+import multer from 'multer';
 
 const getAll = async (req, res) => {
 	try {
     const page = parseInt(req.query.page) || 1;
-    console.log(page)
     const limit = parseInt(req.query.limit) || 10;
     const skipIndex = (page - 1) * limit;
-    let usuarios = await userModel.find({}, req.query.fields)
+    const filters = {};
+    if (req.query.role) {
+      filters.role = req.query.role;
+    }
+    let usuarios = await userModel.find(filters, req.query.fields)
       .sort({ createdAt: -1 })
       .skip(skipIndex)
       .limit(limit)
@@ -39,7 +44,7 @@ const getByID = async (req, res) => {
 };
 
 
-const createUser = async (req, res) => {
+/* const createUser = async (req, res) => {
   const { email, password, telefono, foto, role } = req.body;
 	try{
 		//Hash pasword
@@ -67,11 +72,48 @@ const createUser = async (req, res) => {
       error: 'Error al obtener usuarios'
     });
   }
+}; */
+const createUser = async (req, res) => {
+  FuncionUpload.upload(req, res, async function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json({ error: err })
+    } else if (err) {
+      return res.status(500).json({ error: err })
+    }
+    const { email, password, telefono, role } = req.body;
+    try{
+      //Hash pasword
+      const saltRounds = 10;
+      const hashPassword = await bcrypt.hash(password, saltRounds);
+      // Creacion de Usuario
+      const user = new userModel({
+        email,
+        password: hashPassword,
+        telefono,
+        foto: req.file ? req.file.filename : 'usuario.png',
+        fotoPath: req.file ? req.file.path.replace(/\\/g, '/') : 'src/uploads/usuario.png',
+        role,
+      });
+      await user.save();
+      // Genera un token de sesión para el usuario
+      const token = jwt.sign({'_id' : user._id}, process.env.JWT_SECRET);
+
+      res.status(201).json({ 
+        message: 'Usuario creado',
+        token
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: 'Error al obtener usuarios'
+      });
+    }
+  })
 };
+
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     // Busca al usuario por su email
     const user = await userModel.findOne({ email });

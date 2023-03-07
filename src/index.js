@@ -6,12 +6,16 @@ import bodyParser from "body-parser";
 import routerUser from './routes/user.js'
 dotenv.config();
 
-
+//Configuracion
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
+//Configuracion de archivos estaticos
+app.use('/uploads', express.static('src/uploads'));
+
+//Rutas
 app.use('/', routerUser)
 
 
