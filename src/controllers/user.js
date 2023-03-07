@@ -54,36 +54,6 @@ const deleteById = async (req, res) => {
   }
 };
 
-
-/* const createUser = async (req, res) => {
-  const { email, password, telefono, foto, role } = req.body;
-	try{
-		//Hash pasword
-		const saltRounds = 10;
-		const hashPassword = await bcrypt.hash(password, saltRounds);
-		// Creacion de Usuario
-		const user = new userModel({
-			email,
-			password: hashPassword,
-			telefono,
-			foto,
-			role,
-		});
-		await user.save();
-    // Genera un token de sesión para el usuario
-    const token = jwt.sign({'_id' : user._id}, process.env.JWT_SECRET);
-
-		res.status(201).json({ 
-      message: 'Usuario creado',
-      token
-     });
-	} catch (error) {
-    console.error(error);
-    res.status(500).json({
-      error: 'Error al obtener usuarios'
-    });
-  }
-}; */
 const createUser = async (req, res) => {
   FuncionUpload.upload(req, res, async function (err) {
     if (err instanceof multer.MulterError) {
