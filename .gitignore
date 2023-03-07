@@ -143,5 +143,5 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 
-/uploads/*
-!/uploads/usuario.png
+/src/uploads/*
+!src/uploads/usuario.png
