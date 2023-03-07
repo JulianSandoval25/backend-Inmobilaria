@@ -43,6 +43,17 @@ const getByID = async (req, res) => {
   }
 };
 
+const deleteById = async (req, res) => {
+  const id = req.params.id; // Obtener el id del registro a eliminar
+  try {
+    const result = await userModel.deleteOne({ _id: id }); // Eliminar el registro
+    res.status(200).json({ message: "Usuario eliminado" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al eliminar el Usuario" });
+  }
+};
+
 
 /* const createUser = async (req, res) => {
   const { email, password, telefono, foto, role } = req.body;
@@ -143,4 +154,4 @@ const login = async (req, res) => {
   }
 };
 
-export default {getAll, getByID, createUser, login};
+export default {getAll, getByID, deleteById, createUser, login};
