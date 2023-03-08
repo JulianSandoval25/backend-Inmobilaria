@@ -113,13 +113,11 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
     // Genera un token de sesión para el usuario
-    const token = jwt.sign({'_id' : user._id}, process.env.JWT_SECRET);
     const adminToken = jwt.sign({id : user._id, role: user.role}, process.env.JWT_SECRET);
 
     res.status(200).json({ 
       message: 'Credenciales válidas',
-      adminToken,
-      token
+      adminToken
      });
   } catch (error) {
     console.error(error);
