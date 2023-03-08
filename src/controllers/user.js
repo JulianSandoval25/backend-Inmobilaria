@@ -30,9 +30,9 @@ const getAll = async (req, res) => {
 };
 
 const getByID = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.params.id; // Obtener el id del registro a eliminar
   try {
-    const user = await userModel.findById(userId);
+    const user = await userModel.findById(userId); // Busca usuario por Id
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
@@ -55,6 +55,7 @@ const deleteById = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+  //Middlewares para subir foto de perfil de usuario
   FuncionUpload.upload(req, res, async function (err) {
     if (err instanceof multer.MulterError) {
       return res.status(500).json({ error: err })
@@ -113,9 +114,11 @@ const login = async (req, res) => {
     }
     // Genera un token de sesión para el usuario
     const token = jwt.sign({'_id' : user._id}, process.env.JWT_SECRET);
+    const adminToken = jwt.sign({id : user._id, role: user.role}, process.env.JWT_SECRET);
 
     res.status(200).json({ 
       message: 'Credenciales válidas',
+      adminToken,
       token
      });
   } catch (error) {
