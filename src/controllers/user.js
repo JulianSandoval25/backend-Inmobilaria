@@ -30,7 +30,7 @@ const getAll = async (req, res) => {
 };
 
 const getByID = async (req, res) => {
-  const userId = req.params.id; // Obtener el id del registro a eliminar
+  const userId = req.params.id; // Obtener el id del usuario
   try {
     const user = await userModel.findById(userId); // Busca usuario por Id
     if (!user) {
@@ -104,7 +104,6 @@ const createUser = async (req, res) => {
   })
 };
 
-
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -136,4 +135,38 @@ const login = async (req, res) => {
   }
 };
 
-export default {getAll, getByID, deleteById, deleteByEmail, createUser, login};
+const UpdateUser= async (req, res) =>{
+   try {
+    const userId = req.userID;
+    const updateData = req.body;
+    // Verificar si el usuario existe
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'El usuario no existe' });
+    }
+    
+    // Actualizar usuario
+    const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, { new: true });
+    
+    res.status(200).json({ message: 'Usuario actualizado', user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el usuario' });
+  }
+}
+
+const getByToken = async (req, res) => {
+  try {
+    const userId = req.userID; // Obtener el id del usuario
+    const user = await userModel.findById(userId); // Busca usuario por Id
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener usuario' });
+  }
+};
+
+export default {getAll, getByID, deleteById, deleteByEmail, createUser, login, UpdateUser, getByToken};

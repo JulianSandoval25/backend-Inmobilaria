@@ -35,9 +35,27 @@ GET http://{{host}}/users?page=1
 Authorization: Bearer {{TOKEN}}
 
 
-### GetAll user
+### GetAll user(filtro de usuarios)
 GET http://{{host}}/users?page=1&role=user
 Authorization: Bearer {{TOKEN}}
+
+### GetByID 
+GET http://{{host}}/user/6408a2c08c8a32397803c8fa
+Authorization: Bearer {{TOKEN}}
+
+### GetByToken 
+GET http://{{host}}/user/
+Authorization: Bearer {{TOKEN}}
+
+### UpdateUser 
+PUT http://{{host}}/updateUser
+Authorization: Bearer {{TOKEN}}
+
+{
+    "email":"mariano2022@gmail.com",
+    "password": "123456",
+    "telefono": "9999",
+}
 
 ### Eliminar usuario por ID(cambiar id de usuario)
 DELETE http://{{host}}/user/640897bb5c8c3fdce813b63a

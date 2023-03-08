@@ -45,7 +45,7 @@ const verifyTokenUser = (req, res, next) => {
     res.status(401).json({ message: 'Fallo en autentificacion!' });
   } 
 }
-
+//actualmente esta funcion no se utiliza, ya que se utiliza el id del token para actualizar
 function verifyUserUpdate(req, res, next) {
   try{
     // Obtén el ID del usuario del token de autenticación
