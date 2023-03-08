@@ -54,6 +54,17 @@ const deleteById = async (req, res) => {
   }
 };
 
+const deleteByEmail = async (req, res) => {
+  const email = req.params.email; // Obtener el email del registro a eliminar
+  try {
+    const result = await userModel.deleteOne({ email: email }); // Eliminar el registro
+    res.status(200).json({ message: "Usuario eliminado" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al eliminar el Usuario" });
+  }
+};
+
 const createUser = async (req, res) => {
   //Middlewares para subir foto de perfil de usuario
   FuncionUpload.upload(req, res, async function (err) {
@@ -78,7 +89,7 @@ const createUser = async (req, res) => {
       });
       await user.save();
       // Genera un token de sesión para el usuario
-      const token = jwt.sign({'_id' : user._id}, process.env.JWT_SECRET);
+      const token = jwt.sign({'_id' : user._id, role: user.role}, process.env.JWT_SECRET);
 
       res.status(201).json({ 
         message: 'Usuario creado',
@@ -125,4 +136,4 @@ const login = async (req, res) => {
   }
 };
 
-export default {getAll, getByID, deleteById, createUser, login};
+export default {getAll, getByID, deleteById, deleteByEmail, createUser, login};

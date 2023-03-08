@@ -1,0 +1,53 @@
+@TOKEN= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDdiYTEwODI2ZmQ1NDY5MDk1ZTgxNCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3ODIyOTI1MX0.DLEtV7dmY-uL3I3UWydCbZcI3SgcgPgfJ7Ln-abPbRk
+@host=localhost:3000
+### Login de usuario
+GET http://{{host}}/login
+Content-Type: application/json
+
+{
+    "email":"mariano@gmail.com",
+    "password": "123456"
+}
+
+### Crear Administrator
+POST http://{{host}}/createUser
+Content-Type: application/json
+
+{
+    "email":"marianoAdmin@gmail.com",
+    "password": "123456",
+    "telefono": "123456",
+    "role": "admin"
+}
+
+### Crear Usuario
+POST http://{{host}}/createUser
+Content-Type: application/json
+
+{
+    "email":"marianoUser2@gmail.com",
+    "password": "123456",
+    "telefono": "123456",
+    "role": "user"
+}
+### GetAll
+GET http://{{host}}/users?page=1
+Authorization: Bearer {{TOKEN}}
+
+
+### GetAll user
+GET http://{{host}}/users?page=1&role=user
+Authorization: Bearer {{TOKEN}}
+
+### Eliminar usuario por ID(cambiar id de usuario)
+DELETE http://{{host}}/user/640897bb5c8c3fdce813b63a
+Authorization: Bearer {{TOKEN}}
+
+### Eliminar usuario por email
+DELETE http://{{host}}/user/email/marianoUser@gmail.com
+Authorization: Bearer {{TOKEN}}
+
+### Eliminar Admin por email
+DELETE http://{{host}}/user/email/marianoAdmin@gmail.com
+Authorization: Bearer {{TOKEN}}
+
