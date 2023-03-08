@@ -56,8 +56,6 @@ function verifyUserUpdate(req, res, next) {
     // Verifica que los IDs de usuario coincidan
     if (userId != updateUserId) {
       // Si los IDs no coinciden, devuelve un error de acceso no autorizado
-      console.log("id body"+ updateUserId)
-      console.log("id de req"+ userId)
       return res.status(401).json({ message: 'Acceso no autorizado' });
     }
 
