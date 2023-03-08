@@ -69,3 +69,7 @@ Authorization: Bearer {{TOKEN}}
 DELETE http://{{host}}/user/email/marianoAdmin@gmail.com
 Authorization: Bearer {{TOKEN}}
 
+
+
+
+
