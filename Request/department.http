@@ -8,13 +8,11 @@ Authorization: Bearer {{TOKEN}}
 
 {
     "tipo": "alquiler",
-    "ubicacion": {
-        "calle":"barrios 9999",
-        "ciudad":"Mendoza",
-        "provincia":"Mendoza",
-        "codigoPostal":"2000",
-        "pais": "Argentina"
-    }
+    "calle":"barrios 9999",
+    "ciudad":"Mendoza",
+    "provincia":"Mendoza",
+    "codigoPostal":"2000",
+    "pais": "Argentina"
 }
 
 
@@ -37,3 +35,5 @@ Authorization: Bearer {{TOKEN}}
 ### Delete departamento
 DELETE http://{{host}}/department/640a18e9d0accfc0fb45c9de
 Authorization: Bearer {{TOKEN}}
+
+
