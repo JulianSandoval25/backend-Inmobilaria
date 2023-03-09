@@ -7,6 +7,7 @@ dotenv.config();
 //import rutas
 import routerUser from './routes/user.js'
 import routerDeparment from './routes/department.js'
+import routerReserva from './routes/reserva.js'
 
 
 //Configuracion
@@ -19,8 +20,9 @@ app.use(express.json());
 app.use('/uploads', express.static('src/uploads'));
 
 //Rutas
-app.use('/', routerUser)
-app.use('/', routerDeparment)
+app.use('/', routerUser);
+app.use('/', routerDeparment);
+app.use('/', routerReserva);
 
 
 const port = process.env.PORT || 3000

@@ -1,6 +1,6 @@
 import { mongoose } from 'mongoose';
 
-const citaSchema = new mongoose.Schema({
+const reservaSchema = new mongoose.Schema({
   usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   propiedad: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true },
   fecha: { type: Date, required: true },
@@ -9,6 +9,6 @@ const citaSchema = new mongoose.Schema({
   confirmada: { type: Boolean, default: false },
 });
 
-const Ubicacion = mongoose.model('Ubicacion', ubicacionSchema);
+const Reserva = mongoose.model('Reserva', reservaSchema);
 
-export default Ubicacion ;
+export default Reserva;
