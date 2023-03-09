@@ -33,3 +33,7 @@ Authorization: Bearer {{TOKEN}}
 ### GetByIdPropietario
 GET http://{{host}}/departmentpropietario
 Authorization: Bearer {{TOKEN}}
+
+### Delete departamento
+DELETE http://{{host}}/department/640a18e9d0accfc0fb45c9de
+Authorization: Bearer {{TOKEN}}

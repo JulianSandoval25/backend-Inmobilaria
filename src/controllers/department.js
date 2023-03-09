@@ -85,7 +85,14 @@ const getByIdPropietario = async (req, res) => {
 };
 
 const deleteById = async (req, res) => {
- 
+	const id = req.params.id; // Obtener el id del registro a eliminar
+  try {
+    const result = await deparmentModel.deleteOne({ _id: id }); // Eliminar el registro
+    res.status(200).json({ message: "Departamento eliminado" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al eliminar el Departamento" });
+  }
 };
 
 export default {getAll, getByID, getByIdPropietario, createDepartment, deleteById};
