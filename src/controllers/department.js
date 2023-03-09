@@ -1,5 +1,5 @@
 import deparmentModel from '../models/department.js'
-import FuncionUpload from '../middlewares/uploadImg.js'
+import FuncionUpload  from '../middlewares/uploadDeparment.js'
 import multer from 'multer';
 
 const getAll = async (req, res) => {
@@ -11,9 +11,9 @@ const getAll = async (req, res) => {
     let filters = {};
     if (req.query.ciudad || req.query.provincia || req.query.pais) {
       filters = { 
-				'ubicacion.ciudad': req.query.ciudad,
-				'ubicacion.provincia': req.query.provincia,
-				'ubicacion.pais': req.query.pais,
+				'ciudad': req.query.ciudad,
+				'provincia': req.query.provincia,
+				'pais': req.query.pais,
 			};
     }
 		//Busca departamentos
@@ -34,27 +34,68 @@ const getAll = async (req, res) => {
 };
 
 const createDepartment = async (req, res) => {
-	try{
-		//Creacion de departamento
-		const { tipo, ubicacion } = req.body;
-		const newDepartment = new deparmentModel({
-			propietario: req.userID,
-			tipo,
-			ubicacion
-		});
-		newDepartment.save();
-		res.status(201).json({ 
-			message: 'Departemento creado creado',
-			newDepartment
-		});
-	} catch (error) {
+  FuncionUpload.upload(req, res, async function(err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json({
+        error: 'Error al cargar imágenes', 
+      });
+    } else if (err) {
+      return res.status(500).json({
+        error: 'Error al cargar imágenes', 
+      });
+    }
+    try{
+      //Creacion de departamento
+      const { tipo, calle, ciudad, provincia, codigoPostal, pais } = req.body;
+      let fotos=[] //para crear departamentos sin imagenes
+      if(req.files){
+        fotos = req.files.map(file => file.path.replace(/\\/g, '/')); // Obtén las rutas de las imágenes
+      }
+      const newDepartment = new deparmentModel({
+        propietario: req.userID,
+        tipo,
+        fotos,
+        calle, 
+        ciudad, 
+        provincia, 
+        codigoPostal, 
+        pais
+      });
+      await newDepartment.save();
+      res.status(201).json({ 
+        message: 'Departemento creado creado',
+        newDepartment
+      });
+	  } catch (error) {
       console.error(error);
       res.status(500).json({
         error: 'Error al crear departamento'
       });
     }
-	
-};
+  }
+	/* try{
+		//Creacion de departamento
+		const { tipo, ubicacion } = req.body;
+    
+    const fotos = req.files.map(file => file.path); // Obtén las rutas de las imágenes
+		const newDepartment = new deparmentModel({
+			propietario: req.userID,
+			tipo,
+      fotos,
+			ubicacion
+		});
+		//await newDepartment.save();
+		res.status(201).json({ 
+			message: 'Departemento creado creado',
+			newDepartment
+		});
+	} catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: 'Error al crear departamento'
+    });
+  } */
+)};
 
 const getByID = async (req, res) => {
   const departmentId = req.params.id; // Obtener el id del departamento
