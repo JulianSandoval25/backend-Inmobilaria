@@ -3,8 +3,11 @@ import cors from "cors";
 import dotenv from 'dotenv';
 import dbConnect from './db.js'
 import bodyParser from "body-parser";
-import routerUser from './routes/user.js'
 dotenv.config();
+//import rutas
+import routerUser from './routes/user.js'
+import routerDeparment from './routes/department.js'
+
 
 //Configuracion
 const app = express();
@@ -17,6 +20,7 @@ app.use('/uploads', express.static('src/uploads'));
 
 //Rutas
 app.use('/', routerUser)
+app.use('/', routerDeparment)
 
 
 const port = process.env.PORT || 3000

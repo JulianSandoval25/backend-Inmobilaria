@@ -1,0 +1,35 @@
+@TOKEN= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDdiYTEwODI2ZmQ1NDY5MDk1ZTgxNCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3ODIyOTI1MX0.DLEtV7dmY-uL3I3UWydCbZcI3SgcgPgfJ7Ln-abPbRk
+@host=localhost:3000
+
+### Crear Departamento
+POST http://{{host}}/department
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+    "tipo": "alquiler",
+    "ubicacion": {
+        "calle":"barrios 9999",
+        "ciudad":"Mendoza",
+        "provincia":"Mendoza",
+        "codigoPostal":"2000",
+        "pais": "Argentina"
+    }
+}
+
+
+### GetAll departamentos
+GET http://{{host}}/department?page=1
+Authorization: Bearer {{TOKEN}}
+
+### GetAll departamentos(filtro con por ciudad)
+GET http://{{host}}/department?page=1department?page=1&ciudad=Mendoza&provincia=Mendoza&pais=Argentina
+Authorization: Bearer {{TOKEN}}
+
+### GetByID
+GET http://{{host}}/department/640a0aa04609a17e9d0028c1
+Authorization: Bearer {{TOKEN}}
+
+### GetByIdPropietario
+GET http://{{host}}/departmentpropietario
+Authorization: Bearer {{TOKEN}}
