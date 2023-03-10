@@ -1,0 +1,27 @@
+@TOKEN= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDdiYTEwODI2ZmQ1NDY5MDk1ZTgxNCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3ODIyOTI1MX0.DLEtV7dmY-uL3I3UWydCbZcI3SgcgPgfJ7Ln-abPbRk
+@host=localhost:3000
+
+### Crear Reserva
+POST http://{{host}}/reserva
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+    "propiedad": "640a1a06d0accfc0fb45c9e5", 
+    "fecha": "2023/07/24",
+    "hora": "19:00"
+}
+
+### GetAll
+GET http://{{host}}/reserva
+Authorization: Bearer {{TOKEN}}
+
+
+### GetById
+GET http://{{host}}/reserva/640b31d856a1721fbc2bf72f
+Authorization: Bearer {{TOKEN}}
+
+### Delete
+DELETE http://{{host}}/reserva/640b31d856a1721fbc2bf72f
+Authorization: Bearer {{TOKEN}}
+

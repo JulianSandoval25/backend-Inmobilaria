@@ -47,7 +47,10 @@ const deleteById = async (req, res) => {
   const id = req.params.id; // Obtener el id del registro a eliminar
   try {
     const result = await userModel.deleteOne({ _id: id }); // Eliminar el registro
-    res.status(200).json({ message: "Usuario eliminado" });
+    res.status(200).json({ 
+      message: "Usuario eliminado",
+      result
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error al eliminar el Usuario" });

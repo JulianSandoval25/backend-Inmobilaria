@@ -5,7 +5,7 @@ const reservaSchema = new mongoose.Schema({
   propiedad: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true },
   fecha: { type: Date, required: true },
   hora: { type: String, required: true },
-  duracion: { type: Number, required: true },
+  duracion: { type: Number, required: false },// vers si se tiene que eliminar
   confirmada: { type: Boolean, default: false },
 });
 
