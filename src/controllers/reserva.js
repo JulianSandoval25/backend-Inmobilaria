@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
 				'fecha': req.query.fecha,
 			};
     }
-    let reservas = await reservaModel.find(filters, req.query.fields)
+    let reservas = await reservaModel.find(filters, req.query.fields).populate('usuario').populate('propiedad')
       .sort({ createdAt: -1 })
       .skip(skipIndex)
       .limit(limit)
@@ -56,7 +56,7 @@ const createReserva = async (req, res) => {
 const getByID = async (req, res) => {
   const reservaID = req.params.id; // Obtener el id de la reserva
   try {
-    const reserva = await reservaModel.findById(reservaID); // Busca reserva por Id
+    const reserva = await reservaModel.findById(reservaID).populate('usuario').populate('propiedad'); // Busca reserva por Id
     if (!reserva) {
       return res.status(404).json({ error: 'Reserva no encontrada' });
     }
@@ -69,7 +69,7 @@ const getByID = async (req, res) => {
 
 const getByIdPropietario = async (req, res) => {
   const idPropietario= req.userID
-  reservaModel.find({}).populate('propiedad').then((reservas) => {
+  reservaModel.find({}).populate('usuario').populate('propiedad').then((reservas) => {
     const reservasPropietario = reservas.filter((reserva) => {
       return reserva.propiedad.propietario._id.equals(idPropietario);
     });

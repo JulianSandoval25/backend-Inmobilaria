@@ -17,7 +17,7 @@ const getAll = async (req, res) => {
 			};
     }
 		//Busca departamentos
-    let departamentos = await deparmentModel.find(filters, req.query.fields)
+    let departamentos = await deparmentModel.find(filters, req.query.fields).populate('propietario')
       .sort({ createdAt: -1 })
       .skip(skipIndex)
       .limit(limit)
@@ -73,34 +73,12 @@ const createDepartment = async (req, res) => {
       });
     }
   }
-	/* try{
-		//Creacion de departamento
-		const { tipo, ubicacion } = req.body;
-    
-    const fotos = req.files.map(file => file.path); // Obtén las rutas de las imágenes
-		const newDepartment = new deparmentModel({
-			propietario: req.userID,
-			tipo,
-      fotos,
-			ubicacion
-		});
-		//await newDepartment.save();
-		res.status(201).json({ 
-			message: 'Departemento creado creado',
-			newDepartment
-		});
-	} catch (error) {
-    console.error(error);
-    res.status(500).json({
-      error: 'Error al crear departamento'
-    });
-  } */
 )};
 
 const getByID = async (req, res) => {
   const departmentId = req.params.id; // Obtener el id del departamento
   try {
-    const deparment = await deparmentModel.findById(departmentId); // Busca usuario por Id
+    const deparment = await deparmentModel.findById(departmentId).populate('propietario'); // Busca usuario por Id
     if (!deparment) {
       return res.status(404).json({ error: 'Departamento no encontrado' });
     }
@@ -114,7 +92,7 @@ const getByID = async (req, res) => {
 const getByIdPropietario = async (req, res) => {
   const propietarioID = req.userID; // Obtener el id del usuario
   try {
-    const deparments = await deparmentModel.find({propietario: propietarioID}); // Busca usuario por Id
+    const deparments = await deparmentModel.find({propietario: propietarioID}).populate('propietario'); // Busca usuario por Id
     if (!deparments) {
       return res.status(404).json({ error: 'Departamento no encontrado' });
     }

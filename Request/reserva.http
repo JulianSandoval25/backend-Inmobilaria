@@ -21,6 +21,10 @@ Authorization: Bearer {{TOKEN}}
 GET http://{{host}}/reserva/640b31d856a1721fbc2bf72f
 Authorization: Bearer {{TOKEN}}
 
+### GetByIdPropietario
+GET http://{{host}}/reservapropietario
+Authorization: Bearer {{TOKEN}}
+
 ### Delete
 DELETE http://{{host}}/reserva/640b31d856a1721fbc2bf72f
 Authorization: Bearer {{TOKEN}}
