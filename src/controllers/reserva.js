@@ -68,7 +68,19 @@ const getByID = async (req, res) => {
 };
 
 const getByIdPropietario = async (req, res) => {
-
+  const idPropietario= req.userID
+  reservaModel.find({}).populate('propiedad').then((reservas) => {
+    const reservasPropietario = reservas.filter((reserva) => {
+      return reserva.propiedad.propietario._id.equals(idPropietario);
+    });
+    if (!reservasPropietario) {
+      return res.status(404).json({ error: 'Reserva no encontrada' });
+    }
+    res.status(200).json({ reservasPropietario });
+  }).catch((error) => {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener reserva' });
+  });
 };
 
 const deleteById = async (req, res) => {
