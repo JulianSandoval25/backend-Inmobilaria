@@ -8,7 +8,7 @@ router.get('/user/:id', middlewares.verifyTokenUser, funciones.getByID);
 router.delete('/user/:id', middlewares.verifyTokenAdmin, funciones.deleteById);
 router.delete('/user/email/:email', middlewares.verifyTokenAdmin, funciones.deleteByEmail);
 router.post('/user', funciones.createUser);
-router.get('/login', funciones.login);
+router.post('/login', funciones.login);
 router.put('/user', middlewares.verifyTokenUser, funciones.UpdateUser);
 router.get('/user', middlewares.verifyTokenUser, funciones.getByToken);
 export default router ;

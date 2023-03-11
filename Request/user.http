@@ -1,7 +1,7 @@
 @TOKEN= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDdiYTEwODI2ZmQ1NDY5MDk1ZTgxNCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3ODIyOTI1MX0.DLEtV7dmY-uL3I3UWydCbZcI3SgcgPgfJ7Ln-abPbRk
 @host=localhost:3000
 ### Login de usuario
-GET http://{{host}}/login
+POST http://{{host}}/login
 Content-Type: application/json
 
 {
