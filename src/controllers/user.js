@@ -6,17 +6,13 @@ import multer from 'multer';
 
 const getAll = async (req, res) => {
 	try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skipIndex = (page - 1) * limit;
+    
     const filters = {};
     if (req.query.role) {
       filters.role = req.query.role;
     }
     let usuarios = await userModel.find(filters, req.query.fields)
       .sort({ createdAt: -1 })
-      .skip(skipIndex)
-      .limit(limit)
       .exec();
     res.status(200).json({
       usuarios

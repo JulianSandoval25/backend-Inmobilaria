@@ -31,7 +31,7 @@ Content-Type: application/json
     "role": "user"
 }
 ### GetAll
-GET http://{{host}}/users?page=1
+GET http://{{host}}/users
 Authorization: Bearer {{TOKEN}}
 
 

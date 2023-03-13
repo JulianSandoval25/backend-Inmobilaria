@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/users', middlewares.verifyTokenAdmin, funciones.getAll);
 router.get('/user/:id', middlewares.verifyTokenUser, funciones.getByID);
 router.delete('/user/:id', middlewares.verifyTokenAdmin, funciones.deleteById);
-router.delete('/user/email/:email', middlewares.verifyTokenAdmin, funciones.deleteByEmail);
+router.delete('/user/email/:email', middlewares.verifyTokenUser, funciones.deleteByEmail);
 router.post('/user', funciones.createUser);
 router.post('/login', funciones.login);
 router.put('/user', middlewares.verifyTokenUser, funciones.UpdateUser);

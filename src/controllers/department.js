@@ -4,9 +4,6 @@ import multer from 'multer';
 
 const getAll = async (req, res) => {
 	try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skipIndex = (page - 1) * limit;
 		//Creacion de filtros
     let filters = {};
     if (req.query.ciudad || req.query.provincia || req.query.pais) {
@@ -19,8 +16,6 @@ const getAll = async (req, res) => {
 		//Busca departamentos
     let departamentos = await deparmentModel.find(filters, req.query.fields).populate('propietario')
       .sort({ createdAt: -1 })
-      .skip(skipIndex)
-      .limit(limit)
       .exec();
     res.status(200).json({
       departamentos
