@@ -78,7 +78,10 @@ const createDepartment = async (req, res) => {
 const getByID = async (req, res) => {
   const departmentId = req.params.id; // Obtener el id del departamento
   try {
-    const deparment = await deparmentModel.findById(departmentId).populate('propietario'); // Busca usuario por Id
+    // Busca usuario por Id
+    const deparment = await deparmentModel.findById(departmentId)
+      .populate('propietario')
+      .sort({ createdAt: -1 }); 
     if (!deparment) {
       return res.status(404).json({ error: 'Departamento no encontrado' });
     }
@@ -92,7 +95,10 @@ const getByID = async (req, res) => {
 const getByIdPropietario = async (req, res) => {
   const propietarioID = req.userID; // Obtener el id del usuario
   try {
-    const deparments = await deparmentModel.find({propietario: propietarioID}).populate('propietario'); // Busca usuario por Id
+    // Busca usuario por Id
+    const deparments = await deparmentModel.find({propietario: propietarioID})
+      .populate('propietario')
+      .sort({ createdAt: -1 }); 
     if (!deparments) {
       return res.status(404).json({ error: 'Departamento no encontrado' });
     }
