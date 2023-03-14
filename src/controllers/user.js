@@ -153,6 +153,25 @@ const UpdateUser= async (req, res) =>{
     res.status(500).json({ message: 'Error al actualizar el usuario' });
   }
 }
+const UpdateUserById= async (req, res) =>{
+   try {
+    const userId = req.params.id;
+    const updateData = req.body;
+    // Verificar si el usuario existe
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'El usuario no existe' });
+    }
+    
+    // Actualizar usuario
+    const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, { new: true });
+    
+    res.status(200).json({ message: 'Usuario actualizado', user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el usuario' });
+  }
+}
 
 const getByToken = async (req, res) => {
   try {
@@ -168,4 +187,4 @@ const getByToken = async (req, res) => {
   }
 };
 
-export default {getAll, getByID, deleteById, deleteByEmail, createUser, login, UpdateUser, getByToken};
+export default {getAll, getByID, deleteById, deleteByEmail, createUser, login, UpdateUser, UpdateUserById ,getByToken};

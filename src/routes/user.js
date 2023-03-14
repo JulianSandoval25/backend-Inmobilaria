@@ -10,5 +10,6 @@ router.delete('/user/email/:email', middlewares.verifyTokenUser, funciones.delet
 router.post('/user', funciones.createUser);
 router.post('/login', funciones.login);
 router.put('/user', middlewares.verifyTokenUser, funciones.UpdateUser);
+router.put('/userid/:id', middlewares.verifyTokenUser, funciones.UpdateUserById);
 router.get('/user', middlewares.verifyTokenUser, funciones.getByToken);
 export default router ;
