@@ -3,7 +3,7 @@ import { mongoose } from 'mongoose';
 //import Comment from './comment.js'
 
 const departmentSchema = new mongoose.Schema({
-  propietario: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  propietario: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, onDelete: 'CASCADE' },
   fotos: [{ type: String, required: false }],
   fechaPublicacion: { type: Date, required: true, default: Date.now },
   disponible: { type: Boolean, required: true, default: true },

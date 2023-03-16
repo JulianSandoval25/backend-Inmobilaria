@@ -145,3 +145,4 @@ dist
 
 /src/uploads/*
 !src/uploads/usuario.png
+.env
