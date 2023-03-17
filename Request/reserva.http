@@ -29,3 +29,10 @@ Authorization: Bearer {{TOKEN}}
 DELETE http://{{host}}/reserva/640b31d856a1721fbc2bf72f
 Authorization: Bearer {{TOKEN}}
 
+### UpdateReserva 
+PUT http://{{host}}/reserva/6414992e78bcbce5d8ba2ca0
+Authorization: Bearer {{TOKEN}}
+
+{
+    "confirmada": true
+}

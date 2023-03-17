@@ -97,4 +97,25 @@ const deleteById = async (req, res) => {
   }
 };
 
-export default {getAll, createReserva, getByID, getByIdPropietario,  deleteById};
+
+const UpdateReserva= async (req, res) =>{
+   try {
+    const reservaId = req.params.id;
+    const updateData = req.body;
+    // Verificar si la reserva existe
+    const reserva = await reservaModel.findById(reservaId);
+    if (!reserva) {
+      return res.status(404).json({ message: 'La reserva no existe' });
+    }
+    
+    // Actualizar reserva
+    const reservaUpdate = await reservaModel.findByIdAndUpdate(reservaId, updateData);
+    
+    res.status(200).json({ message: 'Reserva actualizada', reserva: reservaUpdate });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el reserva' });
+  }
+}
+
+export default {getAll, createReserva, getByID, getByIdPropietario,  deleteById, UpdateReserva};
