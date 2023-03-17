@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/reserva', middlewares.verifyTokenUser, funciones.createReserva);
 router.get('/reserva', middlewares.verifyTokenUser, funciones.getAll);
+router.get('/reservausuario', middlewares.verifyTokenUser, funciones.getByIdUsuario);
 router.get('/reserva/:id', middlewares.verifyTokenUser, funciones.getByID);
 router.put('/reserva/:id', middlewares.verifyTokenUser, funciones.UpdateReserva);
 router.get('/reservapropietario', middlewares.verifyTokenUser, funciones.getByIdPropietario);

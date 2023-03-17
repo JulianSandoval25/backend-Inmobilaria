@@ -54,13 +54,27 @@ const createReserva = async (req, res) => {
 
 
 const getByID = async (req, res) => {
-  const reservaID = req.params.id; // Obtener el id de la reserva
+  const reservaID = req.userID; // Obtener el id de la reserva
   try {
     const reserva = await reservaModel.findById(reservaID).populate('usuario').populate('propiedad'); // Busca reserva por Id
     if (!reserva) {
       return res.status(404).json({ error: 'Reserva no encontrada' });
     }
     res.status(200).json({ reserva });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener reserva' });
+  }
+};
+
+const getByIdUsuario = async (req, res) => {
+  const userId = req.userID; // Obtener el id del usuario
+  try {
+    const reservas = await reservaModel.find({usuario:userId}).populate('usuario').populate('propiedad')
+    if (!reservas) {
+      return res.status(404).json({ error: 'Reserva no encontrada' });
+    }
+    res.status(200).json({ reservas });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al obtener reserva' });
@@ -118,4 +132,4 @@ const UpdateReserva= async (req, res) =>{
   }
 }
 
-export default {getAll, createReserva, getByID, getByIdPropietario,  deleteById, UpdateReserva};
+export default {getAll, createReserva, getByID, getByIdPropietario,  deleteById, UpdateReserva, getByIdUsuario};
