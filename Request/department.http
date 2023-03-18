@@ -37,3 +37,10 @@ DELETE http://{{host}}/department/640a18e9d0accfc0fb45c9de
 Authorization: Bearer {{TOKEN}}
 
 
+### UpdateDepartamento
+PUT http://{{host}}/department/6410bb5cfa9bc8dd84065063
+Authorization: Bearer {{TOKEN}}
+
+{
+    "precio":"5000"
+}

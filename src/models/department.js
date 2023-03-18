@@ -8,6 +8,7 @@ const departmentSchema = new mongoose.Schema({
   fechaPublicacion: { type: Date, required: true, default: Date.now },
   disponible: { type: Boolean, required: true, default: true },
   tipo: { type: String, required: true, enum: ['venta', 'alquiler'] },
+  precio: { type: Number, required: false },
   calle:{type: String, required: true},
   ciudad:{type: String, required: true},
   provincia:{type: String, required: true},

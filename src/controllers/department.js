@@ -73,7 +73,7 @@ const createDepartment = async (req, res) => {
 const getByID = async (req, res) => {
   const departmentId = req.params.id; // Obtener el id del departamento
   try {
-    // Busca usuario por Id
+    // Busca departamento por Id
     const deparment = await deparmentModel.findById(departmentId)
       .populate('propietario')
       .sort({ createdAt: -1 }); 
@@ -88,9 +88,9 @@ const getByID = async (req, res) => {
 };
 
 const getByIdPropietario = async (req, res) => {
-  const propietarioID = req.userID; // Obtener el id del usuario
+  const propietarioID = req.userID; // Obtener el id del departamento
   try {
-    // Busca usuario por Id
+    // Busca departamento por Id
     const deparments = await deparmentModel.find({propietario: propietarioID})
       .populate('propietario')
       .sort({ createdAt: -1 }); 
@@ -115,4 +115,24 @@ const deleteById = async (req, res) => {
   }
 };
 
-export default {getAll, getByID, getByIdPropietario, createDepartment, deleteById};
+const UpdateDeparmento= async (req, res) =>{
+   try {
+    const departamentoId = req.params.id;
+    const updateData = req.body;
+    // Verificar si el departamento existe
+    const departamento = await deparmentModel.findById(departamentoId);
+    if (!departamento) {
+      return res.status(404).json({ message: 'El departamento no existe' });
+    }
+    
+    // Actualizar departamento
+    const departamentoUpdate = await deparmentModel.findByIdAndUpdate(departamentoId, updateData);
+    
+    res.status(200).json({ message: 'Departamento actualizado', data: departamentoUpdate });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar el departamento' });
+  }
+}
+
+export default {getAll, getByID, getByIdPropietario, createDepartment, deleteById, UpdateDeparmento};
