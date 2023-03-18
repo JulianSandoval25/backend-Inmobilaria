@@ -88,7 +88,7 @@ const createUser = async (req, res) => {
       });
       await user.save();
       // Genera un token de sesión para el usuario
-      const token = jwt.sign({'_id' : user._id, role: user.role}, process.env.JWT_SECRET);
+      const token = jwt.sign({_id : user._id, role: user.role}, process.env.JWT_SECRET);
 
       res.status(201).json({ 
         message: 'Usuario creado',
@@ -122,7 +122,7 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
     // Genera un token de sesión para el usuario
-    const accessToken = jwt.sign({id : user._id, role: user.role}, process.env.JWT_SECRET);
+    const accessToken = jwt.sign({_id : user._id, role: user.role}, process.env.JWT_SECRET);
 
     res.status(200).json({ 
       message: 'Credenciales válidas',
@@ -173,6 +173,31 @@ const UpdateUserById= async (req, res) =>{
   }
 }
 
+const UpdateUserPassword= async (req, res) =>{
+   try {
+    const userId = req.userID;
+    const updateData = req.body;
+    
+    // Verificar si el usuario existe
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'El usuario no existe' });
+    }
+    // Hash password
+    const saltRounds = 10;
+    const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
+    updateData.password=hashPassword
+    
+    // Actualizar usuario
+    const updatedUser = await userModel.findByIdAndUpdate(userId, updateData, { new: true });
+    
+    res.status(200).json({ message: 'Password de Usuario actualizado', user: updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al actualizar password el usuario' });
+  }
+}
+
 const getByToken = async (req, res) => {
   try {
     const userId = req.userID; // Obtener el id del usuario
@@ -187,4 +212,4 @@ const getByToken = async (req, res) => {
   }
 };
 
-export default {getAll, getByID, deleteById, deleteByEmail, createUser, login, UpdateUser, UpdateUserById ,getByToken};
+export default {getAll, getByID, deleteById, deleteByEmail, createUser, login, UpdateUser, UpdateUserById, UpdateUserPassword ,getByToken};

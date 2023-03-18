@@ -33,7 +33,7 @@ const verifyTokenUser = (req, res, next) => {
       } else {
         if (decoded.role === 'admin' || decoded.role === 'user' ) {
           // El usuario tiene el rol correcto, se permite el acceso a la ruta
-          req.userID = decoded.id; //guarda ID para ser utilizado para validar update
+          req.userID = decoded._id; //guarda ID para ser utilizado para validar update
           next();
         } else {
           return res.status(403).json({ message: 'No tienes permiso para acceder a esta ruta' });
